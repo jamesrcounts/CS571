@@ -1,0 +1,25 @@
+Jim Counts and Josh Pantarotto
+CS 433 Operating Systems
+Programming Assignment 2
+2/28/12
+
+Files:
+ main.cpp   		 - test program
+ mysh.cpp  		 - defines shell functions
+ mysh.h       		- declares shell functions
+ Makefile    		- project file to compile program with make command
+ assignment2		 - executable
+
+Instructions:
+ From the project directory type "make" at the command line and press enter.
+ "make clean" is also supported, which will remove the executable and any 
+ object files.
+
+ Run the program by typing "./assignment2" at the command line and pressing 
+ enter.
+
+Remarks:
+	Our shell parses the command line entry and implements the required functions: "cd", "pushd", "popd", and "exit".  It also forks a child process to execute external commands and waits for them to finish prior to resuming operation.  It notifies the user of any errors in regard to arguments or the names of external commands as well.  The shell is not able to use file or directory names containing spaces as our use of the C string tokenizer prevents it.
+	We decided to implement the showing of the current working directory in the shell prompt to prevent anyone using the shell from having to type the "pwd" command to tell which directory they are currently in.
+	We also utilized the STL stack data structure to hold pointers to char for our implementation of the push and pop directory functions.
+
