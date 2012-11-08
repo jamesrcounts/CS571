@@ -63,13 +63,99 @@ public:
             "ParseCompoundRule");
     }
 
+    void ParseAll(string input)
+    {
+        Parser p;
+        p.Parse(input);
+        tf.ASSERT_STRING_EQUALS(
+            "[PASSED-AI] [NICE] ",
+            p.FormatFacts(),
+            "ParseAll Facts");
+        tf.ASSERT_STRING_EQUALS(
+            "[[SWEET] [SMART] [IMPLIES] [SUCCESSFUL] ] [[SWEET] [SMART] [IMPLIES] [POPULAR] ] [[NICE] [IMPLIES] [SWEET] ] [[PASSED-AI] [IMPLIES] [SMART] ] ",
+            p.FormatRules(),
+            "ParseAll Rules");
+    }
+
+    void ParseWithProgram(string input)
+    {
+        std::vector<string> expected;
+        expected.push_back("PASSED-AI");
+        expected.push_back("NICE");
+
+        Program p;
+        p.Parse(input);
+        for (int i = 0; i < (int)expected.size(); ++i)
+        {
+            tf.ASSERT_STRING_EQUALS(expected[i], p.FormatFact(i), expected[i]);
+        }
+    }
+
+    void EvaluateOnce(string input)
+    {
+        std::vector<string> expected;
+        expected.push_back("PASSED-AI");
+        expected.push_back("NICE");
+        expected.push_back("SWEET");
+
+        Program p;
+        p.Parse(input);
+        p.EvaluateOnce();
+        for (int i = 0; i < (int)expected.size(); ++i)
+        {
+            tf.ASSERT_STRING_EQUALS(expected[i], p.FormatFact(i), expected[i]);
+        }
+    }
+
+    void EvaluateTwice(string input)
+    {
+        std::vector<string> expected;
+        expected.push_back("PASSED-AI");
+        expected.push_back("NICE");
+        expected.push_back("SWEET");
+        expected.push_back("SMART");
+
+        Program p;
+        p.Parse(input);
+        p.EvaluateOnce();
+        p.EvaluateOnce();
+        for (int i = 0; i < (int)expected.size(); ++i)
+        {
+            tf.ASSERT_STRING_EQUALS(expected[i], p.FormatFact(i), expected[i]);
+        }
+    }
+
+    void EvaluateAll(string input)
+    {
+        std::vector<string> expected;
+        expected.push_back("PASSED-AI");
+        expected.push_back("NICE");
+        expected.push_back("SWEET");
+        expected.push_back("SMART");
+        expected.push_back("SUCCESSFUL");
+        expected.push_back("POPULAR");
+
+        Program p;
+        p.Parse(input);
+        p.Evaluate();
+        for (int i = 0; i < (int)expected.size(); ++i)
+        {
+            tf.ASSERT_STRING_EQUALS(expected[i], p.FormatFact(i), expected[i]);
+        }   
+    }
+
     // Execute all configured unit tests.
-    void RunTests()
+    void RunTests(string input)
     {
         ParseFact();
         ParseTwoFacts();
         ParseSimpleRule();
         ParseCompoundRule();
+        ParseAll(input);
+        ParseWithProgram(input);
+        EvaluateOnce(input);
+        EvaluateTwice(input);
+        EvaluateAll(input);
         cout << tf.GetPassCount() << "/" << tf.GetPassCount() + tf.GetFailCount() << endl;
 
     }

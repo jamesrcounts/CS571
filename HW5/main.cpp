@@ -10,11 +10,35 @@
 //  system.
 //*************************************************************************************
 
+#include <algorithm>
 #include <iostream>
+#include <fstream>
 #include "Program.h"
 #include "Test.h"
 
 using namespace std;
+
+string Slurp(string file)
+{
+    ifstream in;
+    in.open(file.c_str());
+    stringstream sstr;
+    sstr << in.rdbuf();
+    string allText = sstr.str();
+    string punctuation = "'[](){}:,_.!?\";\\/@#$%&*+|~`<";
+    string result;
+    for(int i = 0; i < (int)allText.size(); i++)
+    {
+        char p = allText[i];
+        if(punctuation.find_first_of(p) == string::npos)
+        {
+            result.push_back(p);
+        }
+    }
+
+    return result;
+}
+
 int main(int argc, const char * argv[])
 {
 	cout << endl << "CS571 HW 5" << endl;
@@ -22,14 +46,22 @@ int main(int argc, const char * argv[])
 
 	Program p;
 	bool test = p.ShouldRunTests(argc, argv);
+	string input = Slurp(argv[1]);
 	if(test)
 	{
 		Tests t;
-		t.RunTests();
+		t.RunTests(input);
 	}
 	else 
 	{
-		cout << "No Test." << endl;
+		p.Parse(input);		
+	    p.Evaluate();
+	    std::vector<string> facts;
+	    facts = p.GetFacts();
+	    for (int i = 0; i < (int)facts.size(); ++i)
+	    {
+	    	cout << facts[i] << endl;
+	    }
 	}
 
 	return 0;

@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <sstream>
+#include <algorithm>
 
 using namespace std;
 
@@ -16,6 +17,25 @@ public:
 	{
 		this->predicates = predicates;
 		this->implications = implications;
+	}
+
+	vector<string> GetImplications()
+	{
+		return implications;
+	}
+
+	bool Match(vector<string> facts)
+	{
+		for (int i = 0; i < (int)predicates.size(); ++i)
+		{
+			vector<string>::iterator it;
+			it = find(facts.begin(), facts.end(), predicates[i]);
+			if(it == facts.end())
+			{
+				return 0;
+			}
+		}
+		return 1;
 	}
 
 	string str()
@@ -35,6 +55,11 @@ public:
 
 		return ss.str();
 	}
+
+	bool operator==(Rule other)
+	{
+		return str().compare(other.str()) == 0;
+	}
 };
 
 class Parser{
@@ -45,6 +70,16 @@ public:
 	Parser()
 	{
 		state = 0;
+	}
+
+	std::vector<string> GetFacts()
+	{
+		return facts;
+	}
+
+	std::vector<Rule> GetRules()
+	{
+		return rules;
 	}
 
 	string FormatFacts()
