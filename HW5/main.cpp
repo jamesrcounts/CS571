@@ -18,6 +18,9 @@
 
 using namespace std;
 
+/*
+Reads all text input.  Discards blacklisted punctuation.
+*/
 string Slurp(string file)
 {
     ifstream in;
@@ -39,23 +42,33 @@ string Slurp(string file)
     return result;
 }
 
+/*
+Bootstrapper for the application.
+*/
 int main(int argc, const char * argv[])
 {
 	cout << endl << "CS571 HW 5" << endl;
-	cout << "Jim Counts and Jeremy Villegas" << endl;
+	cout << "Jim Counts and Jeremy Villegas" << endl << endl;
 
 	Program p;
+
+	// How were we called?
 	bool test = p.ShouldRunTests(argc, argv);
 	string input = Slurp(argv[1]);
 	if(test)
 	{
+		// User wants to run tests.
 		Tests t;
 		t.RunTests(input);
 	}
 	else 
 	{
-		p.Parse(input);		
+		// User wants to run the program.
+
+		p.Parse(input);	    
 	    p.Evaluate();
+	    
+	    // Print the results.
 	    std::vector<string> facts;
 	    facts = p.GetFacts();
 	    for (int i = 0; i < (int)facts.size(); ++i)
