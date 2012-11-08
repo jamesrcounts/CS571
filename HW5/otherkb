@@ -1,0 +1,6 @@
+FOL
+FOL ^ FWC -> SIMPLE
+HW -> FWC
+FOL -> HW
+SIMPLE -> A
+HARD -> F
