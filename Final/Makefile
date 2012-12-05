@@ -11,6 +11,9 @@ HDRS = Program.h Test.h TestFramework.h Move.h
 SRCS = main.cpp 									# .c or .cpp source files.  
 OBJ = $(SRCS:.cpp=.o)								# object files for the target. Add more to this and next lines if there are more than one source files.
 
+test: $(PROG)
+	./mc TEST
+
 $(PROG): $(SRCS) $(HDRS) 
 	$(CC) $(SRCS) -o $(PROG) $(CFLAGS)
 

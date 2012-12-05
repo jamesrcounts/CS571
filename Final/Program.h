@@ -3,6 +3,9 @@
 
 #include <sstream>
 #include <algorithm>
+#include <vector>
+
+#include "Move.h"
 
 using namespace std;
 
@@ -33,6 +36,23 @@ public:
     bool ShouldRunTests(int argc, const char *argv[])
     {
         return GetArgumentAt(argc, argv, 1, "").compare("TEST") == 0;
+    }
+
+    vector<Move> GenerateMoves()
+    {
+        vector<Move> v;
+        v.push_back(Move(false, 1, 0));
+        v.push_back(Move(false, 2, 0));
+        v.push_back(Move(false, 1, 1));
+        v.push_back(Move(false, 0, 2));
+        v.push_back(Move(false, 0, 1));
+        v.push_back(Move(true, 1, 0));
+        v.push_back(Move(true, 2, 0));
+        v.push_back(Move(true, 1, 1));
+        v.push_back(Move(true, 0, 2));
+        v.push_back(Move(true, 0, 1));
+
+        return v;
     }
 
     void Evaluate()
