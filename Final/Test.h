@@ -54,9 +54,11 @@ class Tests{
 
         Program p;
         vector<Move> actual = p.GenerateMoves();
+        
         tf.ASSERT_INT_EQUALS(expected.size(), actual.size(), tf.GetSizeMessage("GenerateAllMoves"));
         if(expected.size() == actual.size())
-        {  for (int i = 0; i < (int)expected.size(); ++i)
+        {  
+            for (int i = 0; i < (int)expected.size(); ++i)
             {
                 tf.ASSERT_STRING_EQUALS(expected[i], actual[i].str(), expected[i]);
             }

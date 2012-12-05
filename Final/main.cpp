@@ -23,24 +23,24 @@ Bootstrapper for the application.
 */
 int main(int argc, const char * argv[])
 {
-	cout << endl << "CS571 Final Project" << endl;
-	cout << "Jim Counts" << endl << endl;
+    cout << endl << "CS571 Final Project" << endl;
+    cout << "Jim Counts" << endl << endl;
 
-	Program p;
+    Program p;
 
-	// How were we called?
-	bool test = p.ShouldRunTests(argc, argv);
-	if(test)
-	{
-		// User wants to run tests.
-		Tests t;
-		t.RunTests();
-	}
-	else 
-	{
-		// User wants to run the program.
-	    p.Evaluate();
-	}
+    // How were we called?
+    bool test = p.ShouldRunTests(argc, argv);
+    if(test)
+    {
+        // User wants to run tests.
+        Tests t;
+        t.RunTests();
+    }
+    else 
+    {
+        // User wants to run the program.
+        p.Evaluate();
+    }
 
-	return 0;
+    return 0;
 }
