@@ -84,8 +84,8 @@ public:
 		// There must be enough missionaries on this side
 		// There must be enough cannibals on this side
 		return 		boat == m.BoatOnRight() 
-				&& 	m.MissionariesOnBoat() <= MissionariesHere()
-				&&  m.CannibalsOnBoat() <= CannibalsHere();
+		&& 	m.MissionariesOnBoat() <= MissionariesHere()
+		&&  m.CannibalsOnBoat() <= CannibalsHere();
 	}
 
 	/*
@@ -101,7 +101,44 @@ public:
 	*/
 	int CannibalsHere()
 	{
-		return (boat ? cannibals : 3 - cannibals);
+		return (boat ? CannibalsOnRight() : 3 - CannibalsOnRight());
+	}
+
+	/* 
+	Gets the count of cannibals on the right river bank.
+	*/
+	int CannibalsOnRight()
+	{
+		return cannibals;
+	}
+
+	/*
+	Estimates the cost of reaching the goal state through this state.
+	*/
+	int EstimateCost(vector<CrossingState> visited)
+	{		
+		// The actual cost g(n) = 1 because it will take at least one trip to 
+		// reach *this* state, 
+		int cost = 1;
+
+		// The estimated cost h(n) = Total people on the right bank.  It will
+		// require *at least* one trip across the river to move each person,
+		// and on average more than one is required.
+		cost += MissionariesOnRight() + CannibalsOnRight();
+
+		// h(n) must include an additional trip if we return to a previously 
+		// visited state.  If we move backward, we must make at least one more
+		// trip to move forward again.
+		cost += WasVisited(visited) ? 1 : 0;
+
+		// h(n) must include a suffciently large death penalty to prevent the 
+		// missionaries from ever choosing an unsafe state.  In terms of "trips"
+		// we can rationalize this by saying that when a missionary dies, they 
+		// wont be able to reach the goal state--even if allowed an infinite 
+		// number of trips across the river.
+		cost = IsSafe() ? cost : 4092;
+
+		return cost;
 	}
 
 	/*
@@ -111,11 +148,11 @@ public:
 	CrossingState GenerateSuccessor(Move m)
 	{
 		int missionaries_on_right = (	m.MovingRight() ?
-									  	missionaries + m.MissionariesOnBoat() : 
-									  	missionaries - m.MissionariesOnBoat());	
+			MissionariesOnRight() + m.MissionariesOnBoat() : 
+			MissionariesOnRight() - m.MissionariesOnBoat());	
 		int cannibals_on_right 	  = (	m.MovingRight() ?
-										cannibals + m.CannibalsOnBoat() :
-										cannibals - m.CannibalsOnBoat());
+			CannibalsOnRight() + m.CannibalsOnBoat() :
+			CannibalsOnRight() - m.CannibalsOnBoat());
 		return CrossingState(
 			m.MovingRight(), 
 			missionaries_on_right, 
@@ -127,20 +164,47 @@ public:
 	*/
 	int MissionariesHere()
 	{
-		return (boat ? missionaries : 3 - missionaries);
+		return (boat ? MissionariesOnRight() : 3 - MissionariesOnRight());
 	}
 
+	/*
+	Gets the count of missionaries on the right river bank.
+	*/
+	int MissionariesOnRight()
+	{
+		return missionaries;
+	}
+
+	/*
+	Gets a value indicating whether this state has already been visited.
+	*/
+	bool WasVisited(vector<CrossingState> visited)
+	{
+		vector<CrossingState>::iterator it;
+		it = find(visited.begin(), visited.end(), *this);
+		return it != visited.end();
+	}
 
     /*
     Creates a string representation of the object for display and testing.
     */
     string str()
-	{ 
-		stringstream ss;
-		ss << "Boat on " << (boat ? "Right" : "Left") << " bank, with ";
-		ss << MissionariesHere() << " missionaries, and ";
-		ss << CannibalsHere() << " cannibals.";
-		return ss.str();
+    { 
+    	stringstream ss;
+    	ss << "Boat on " << (boat ? "Right" : "Left") << " bank, with ";
+    	ss << MissionariesHere() << " missionaries, and ";
+    	ss << CannibalsHere() << " cannibals.";
+    	return ss.str();
+    }
+
+	/*
+	When the string representation of two states are equal, then the states are 
+	equivalent.
+	*/
+	bool operator==(CrossingState other)
+	{
+		return str().compare(other.str()) == 0;
 	}
+
 };
 #endif

@@ -258,7 +258,7 @@ class Tests{
         CrossingState c = CrossingState(false, 1, 2);
         tf.ASSERT_TRUE(c.IsSafe(), "SafeLeftState");
     }
-/*
+
     void EstimateInitialStateCost()
     {
         CrossingState c = CrossingState(true, 3, 3);
@@ -268,13 +268,36 @@ class Tests{
         int actual   = c.EstimateCost(visited);
         tf.ASSERT_INT_EQUALS(expected, actual, "EstimateInitialStateCost");
     }
-*/
+
+    void EstimateReturnToInitialStateCost()
+    {
+        CrossingState c = CrossingState(true, 3, 3);
+        vector<CrossingState> visited;
+        visited.push_back(c);
+
+        int expected = 8;
+        int actual   = c.EstimateCost(visited);
+        tf.ASSERT_INT_EQUALS(expected, actual, "EstimateReturnToInitialStateCost");
+    }
+
+    void EstimateUnsafeStateCost()
+    {
+        CrossingState c = CrossingState(true, 2, 3);
+        vector<CrossingState> visited;
+
+        int expected = 4092;
+        int actual   = c.EstimateCost(visited);
+        tf.ASSERT_INT_EQUALS(expected, actual, "EstimateUnsafeStateCost");
+    }
+
 public:
 
     // Execute all configured unit tests.
     void RunTests()
     {
-  //      EstimateInitialStateCost();
+        EstimateUnsafeStateCost();
+        EstimateReturnToInitialStateCost();
+        EstimateInitialStateCost();
         SafeLeftState();
         FatalRightState();
         MoveMixedLeft();
