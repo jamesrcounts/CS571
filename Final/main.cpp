@@ -1,13 +1,12 @@
 //************************************************************************************
 //  main.cpp
-//  mysh
+//  mc
 //
-//  Created by Jim Counts and Jeremy Villegas 11/2012
+//  Created by Jim Counts
 //  CS 571 - AI
-//  Homework 5
+//  Final Project
 //  
-//  This program acts as a basic shell and implements a Forward Chaining production 
-//  system.
+//  This program implements an A* search to solve the Missinaries & Cannibals puzzle.
 //*************************************************************************************
 
 #include <algorithm>

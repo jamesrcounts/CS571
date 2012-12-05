@@ -60,6 +60,14 @@ public:
     ~Move(){}
 
     /*
+    True if the boat is currently on the right bank; otherwise false.
+    */
+    bool BoatOnRight()
+    {
+        return !boat_moving_right;
+    }
+
+    /*
     Creates a string representation of the object for display and testing.
     */
     string str(){
