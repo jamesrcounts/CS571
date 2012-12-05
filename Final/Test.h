@@ -238,18 +238,45 @@ class Tests{
 
     void MoveMixedLeft()
     {
-        CrossingState c = CrossingState(true, 1, 1);
-        CrossingState expected = CrossingState(false, 0, 0);
         Move m = Move(false, 1, 1);
-        CrossingState actual = c.GenerateSuccessor(m);
+
+        CrossingState c         = CrossingState(true, 1, 1);
+        CrossingState expected  = CrossingState(false, 0, 0);
+        CrossingState actual    = c.GenerateSuccessor(m);
+        
         tf.ASSERT_STRING_EQUALS(expected.str(), actual.str(), "MoveMixedLeft");
     }
 
+    void FatalRightState()
+    {
+        CrossingState c = CrossingState(true, 1, 2);
+        tf.ASSERT_FALSE(c.IsSafe(), "FatalRightState");
+    }
+
+    void SafeLeftState()
+    {
+        CrossingState c = CrossingState(false, 1, 2);
+        tf.ASSERT_TRUE(c.IsSafe(), "SafeLeftState");
+    }
+/*
+    void EstimateInitialStateCost()
+    {
+        CrossingState c = CrossingState(true, 3, 3);
+        vector<CrossingState> visited;
+
+        int expected = 7;
+        int actual   = c.EstimateCost(visited);
+        tf.ASSERT_INT_EQUALS(expected, actual, "EstimateInitialStateCost");
+    }
+*/
 public:
 
     // Execute all configured unit tests.
     void RunTests()
     {
+  //      EstimateInitialStateCost();
+        SafeLeftState();
+        FatalRightState();
         MoveMixedLeft();
         MoveTwoMissionariesRight();
         MoveTwoCannibalsLeft();

@@ -89,6 +89,14 @@ public:
 	}
 
 	/*
+	Return a value indicating whether the state is safe for the missionaries.
+	*/
+	bool IsSafe()
+	{
+		return CannibalsHere() <= MissionariesHere();
+	}
+
+	/*
 	Gets the count of cannibals on the river bank that has the boat.
 	*/
 	int CannibalsHere()
