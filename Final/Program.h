@@ -5,6 +5,7 @@
 #include <algorithm>
 #include <vector>
 
+#include "CrossingState.h"
 #include "Move.h"
 
 using namespace std;
@@ -14,6 +15,11 @@ The search implementation.
 */
 class Program
 {
+    /*
+    Set of visited states.
+    */
+    vector<CrossingState> history;
+
     // Gets the command line argument at the specified poistion, or returns
     // a default value if no argument is found at that position.
     string GetArgumentAt(
@@ -55,6 +61,44 @@ public:
         return v;
     }
 
+    CrossingState SelectNext(CrossingState current)
+    {
+        Expand(current);
+
+        history.push_back(current);
+        int min_estimate = 4092;
+        CrossingState min;
+
+        vector<Move> moves = GenerateMoves();
+        for (std::vector<Move>::iterator it = moves.begin(); it != moves.end(); ++it)
+        {
+            if(current.IsApplicableMove(*it))
+            {
+                CrossingState successor = current.GenerateSuccessor(*it);
+                int estimate = successor.EstimateCost(history);
+
+                Consider(successor, estimate);
+                
+                if(estimate < min_estimate)
+                {
+                    min_estimate = estimate;
+                    min = successor;
+                }
+            }
+            
+        }
+        return min;
+    }
+
+    void Expand(CrossingState current)
+    {
+        cout << "Expanding: " << current.str() << endl;
+    }
+
+    void Consider(CrossingState successor, int estimate)
+    {
+        cout << "Considering: (" << estimate << ") for " << successor.str() << endl;
+    }
     void Evaluate()
     {
 

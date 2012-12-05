@@ -255,7 +255,7 @@ class Tests{
 
     void SafeLeftState()
     {
-        CrossingState c = CrossingState(false, 1, 2);
+        CrossingState c = CrossingState(false, 1, 1);
         tf.ASSERT_TRUE(c.IsSafe(), "SafeLeftState");
     }
 
@@ -290,14 +290,57 @@ class Tests{
         tf.ASSERT_INT_EQUALS(expected, actual, "EstimateUnsafeStateCost");
     }
 
+    void ChooseFirstSuccessor()
+    {
+        CrossingState c        = CrossingState(true, 3, 3);
+        CrossingState expected = CrossingState(false, 2, 2);
+
+        Program p;
+        CrossingState actual   = p.SelectNext(c);
+        tf.ASSERT_STRING_EQUALS(expected.str(), actual.str(), "ChooseFirstSuccessor");
+    }
+
+    void SafeLeftRightFatal()
+    {
+        CrossingState c = CrossingState(false, 1, 2);
+
+        tf.ASSERT_FALSE(c.IsSafe(), "SafeLeftRightFatal");
+    }
+
+    void DoNotBacktrack()
+    {
+        CrossingState c        = CrossingState(true, 3, 1);
+        CrossingState expected = CrossingState(true, 2, 2);
+
+        Program p;
+        CrossingState first    = p.SelectNext(c);
+        CrossingState actual   = p.SelectNext(first);
+        tf.ASSERT_STRING_EQUALS(expected.str(), actual.str(), "DoNotBacktrack");
+    }
+
+    void SafeNoMissionariesHere(){
+        CrossingState c = CrossingState(true, 0, 3);
+        tf.ASSERT_TRUE(c.IsSafe(), "SafeNoMissionariesHere");
+    }
+
+    void SafeNoMissionariesThere(){
+        CrossingState c = CrossingState(true, 3, 2);
+        tf.ASSERT_TRUE(c.IsSafe(), "SafeNoMissionariesThere");
+    }
+
 public:
 
     // Execute all configured unit tests.
     void RunTests()
     {
+        SafeNoMissionariesHere();
+        SafeNoMissionariesThere();
+        DoNotBacktrack();
+        ChooseFirstSuccessor();
         EstimateUnsafeStateCost();
         EstimateReturnToInitialStateCost();
         EstimateInitialStateCost();
+        SafeLeftRightFatal();
         SafeLeftState();
         FatalRightState();
         MoveMixedLeft();

@@ -1,6 +1,8 @@
 #ifndef CROSSINGSTATE_H
 #define CROSSINGSTATE_H
 
+#include "Move.h"
+
 using namespace std;
 
 /*
@@ -46,7 +48,36 @@ class CrossingState
 	*/
 	int cannibals;
 
+	/*
+	Initializes a new instance of the CrossingState class.
+	*/
+	void Initialize(bool boat_on_right, int missionaries_on_right, int cannibals_on_right)
+	{
+		if(3 < missionaries_on_right || missionaries_on_right < 0)
+		{
+			throw missxex;
+		}
+
+		if(3 < cannibals_on_right || cannibals_on_right < 0)
+		{
+			throw cannxex;
+		}
+
+		boat = boat_on_right;
+		missionaries = missionaries_on_right;
+		cannibals= cannibals_on_right;
+	}
+
 public:
+	/*
+	Initializes a new instance of the CrossingState class.
+	Remarks: Creates the initial state by default.
+	*/
+	CrossingState()
+	{
+		Initialize(true, 3, 3);		
+	}
+
 	/*
 	Initializes a new instance of the CrossingState class.
 	boat_on_right:         true if the boat is located on the right bank; otherwise false.
@@ -93,7 +124,12 @@ public:
 	*/
 	bool IsSafe()
 	{
-		return CannibalsHere() <= MissionariesHere();
+		bool safeHere  =    (0 == MissionariesHere()) 
+		                 || (CannibalsHere() <= MissionariesHere());
+		bool safeThere =    (0 == MissionariesThere()) 
+						 || (CannibalsThere() <= MissionariesThere());
+
+		return safeHere && safeThere;
 	}
 
 	/*
@@ -102,6 +138,14 @@ public:
 	int CannibalsHere()
 	{
 		return (boat ? CannibalsOnRight() : 3 - CannibalsOnRight());
+	}
+
+	/*
+	Gets the count of cannibals on the river bank that does not have the boat.
+	*/
+	int CannibalsThere()
+	{
+		return 3 - CannibalsHere();
 	}
 
 	/* 
@@ -165,6 +209,15 @@ public:
 	int MissionariesHere()
 	{
 		return (boat ? MissionariesOnRight() : 3 - MissionariesOnRight());
+	}
+
+	/*
+	Gets the count of missionaries on the river bank that does not have the 
+	boat.
+	*/
+	int MissionariesThere()
+	{
+		return 3 - MissionariesHere();
 	}
 
 	/*
