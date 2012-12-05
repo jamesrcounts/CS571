@@ -125,9 +125,9 @@ public:
 	bool IsSafe()
 	{
 		bool safeHere  =    (0 == MissionariesHere()) 
-		                 || (CannibalsHere() <= MissionariesHere());
+		|| (CannibalsHere() <= MissionariesHere());
 		bool safeThere =    (0 == MissionariesThere()) 
-						 || (CannibalsThere() <= MissionariesThere());
+		|| (CannibalsThere() <= MissionariesThere());
 
 		return safeHere && safeThere;
 	}
@@ -257,6 +257,15 @@ public:
 	bool operator==(CrossingState other)
 	{
 		return str().compare(other.str()) == 0;
+	}
+
+	/*
+	When the string representations of two states are not equal, then the states
+	are not equivalent.
+	*/
+	bool operator!=(CrossingState other)
+	{
+		return !(*this == other);
 	}
 
 };

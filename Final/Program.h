@@ -77,7 +77,7 @@ public:
                 CrossingState successor = current.GenerateSuccessor(*it);
                 int estimate = successor.EstimateCost(history);
 
-                Consider(successor, estimate);
+                Consider(successor, estimate, *it);
                 
                 if(estimate < min_estimate)
                 {
@@ -87,21 +87,41 @@ public:
             }
             
         }
+
         return min;
     }
 
     void Expand(CrossingState current)
     {
-        cout << "Expanding: " << current.str() << endl;
+        cout << endl << "*Expanding: " << current.str() << endl;
     }
 
-    void Consider(CrossingState successor, int estimate)
+    void Consider(CrossingState successor, int estimate, Move m)
     {
-        cout << "Considering: (" << estimate << ") for " << successor.str() << endl;
+        cout << endl << "Considering: (" << estimate << ") for " << successor.str() << endl << "\tvia " << m.str() << endl;
     }
+
+    void Review()
+    {
+        cout << endl << "Path to solution:" << endl;
+        for (std::vector<CrossingState>::iterator state = history.begin(); state != history.end(); ++state)
+        {
+            cout << state->str() << endl;
+        }
+    }
+
     void Evaluate()
     {
+        CrossingState goal_state = CrossingState(false, 0, 0);
+        CrossingState current_state = CrossingState(true, 3, 3);
 
+        while(current_state != goal_state)
+        {
+            current_state = SelectNext(current_state);
+        }
+        history.push_back(goal_state);
+
+        Review();
     }
 
 };
