@@ -1,4 +1,4 @@
-//************************************************************************************
+//******************************************************************************
 //  main.cpp
 //  mc
 //
@@ -6,8 +6,9 @@
 //  CS 571 - AI
 //  Final Project
 //  
-//  This program implements an A* search to solve the Missinaries & Cannibals puzzle.
-//*************************************************************************************
+//  This program implements an A* search to solve the Missinaries & Cannibals 
+//  puzzle.
+//******************************************************************************
 
 #include <algorithm>
 #include <iostream>

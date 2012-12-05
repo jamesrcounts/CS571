@@ -55,7 +55,8 @@ class TestFramework
 	}
 	
 	/*
-	| Converts an array of standard strings into an array of mutable c-style strings.
+	| Converts an array of standard strings into an array of mutable c-style 
+	| strings.
 	*/
 	void ToCStrArray(int size, string source[], char *argv[])
 	{			
@@ -98,11 +99,13 @@ class TestFramework
 		ASSERT_TRUE(!value, message);
 	}
 	
-	// Prints pass/fail with a message based on whether to integers are the same.
+	// Prints pass/fail with a message based on whether to integers are the 
+	// same.
 	void ASSERT_INT_EQUALS(int expected, int actual, string message)
 	{
 		EVALUATE(expected == actual);
-		cout << message << " Expected: [" << expected << "] Actual: [" << actual << "]" << endl;		
+		cout << message << " Expected: [" << expected;
+		cout << "] Actual: [" << actual << "]" << endl;		
 	}
 	
 	/*
@@ -111,19 +114,30 @@ class TestFramework
 	void ASSERT_STRING_EQUALS(string expected, string actual, string message)
 	{
 		EVALUATE(expected.compare(actual) == 0);
-		cout << message << " Expected: [" << expected << "] Actual: [" << actual << "]" << endl;
+		cout << message << " Expected: [" << expected;
+		cout << "] Actual: [" << actual << "]" << endl;
 	}
 	
-	// Evaluates two integer sequences and prints messages based on whether they are the same.
-	void ASSERT_INT_SEQUENCE_EQUALS(vector<int> expected, vector<int> actual, string message)
+	// Evaluates two integer sequences and prints messages based on whether they
+	// are the same.
+	void ASSERT_INT_SEQUENCE_EQUALS(
+		vector<int> expected, 
+		vector<int> actual, 
+		string message)
 	{
-		ASSERT_INT_EQUALS(expected.size(), actual.size(), GetSizeMessage(message));
+		ASSERT_INT_EQUALS(
+			expected.size(), 
+			actual.size(), 
+			GetSizeMessage(message));
 		
 		if(expected.size() == actual.size())
 		{
 			for(unsigned int i = 0; i < expected.size(); i++)
 			{										
-				ASSERT_INT_EQUALS(expected[i], actual[i], GetItemMessage(message, i));
+				ASSERT_INT_EQUALS(
+					expected[i], 
+					actual[i], 
+					GetItemMessage(message, i));
 			}
 		}
 	}

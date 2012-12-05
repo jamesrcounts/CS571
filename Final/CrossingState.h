@@ -51,7 +51,10 @@ class CrossingState
 	/*
 	Initializes a new instance of the CrossingState class.
 	*/
-	void Initialize(bool boat_on_right, int missionaries_on_right, int cannibals_on_right)
+	void Initialize(
+		bool boat_on_right, 
+		int missionaries_on_right, 
+		int cannibals_on_right)
 	{
 		if(3 < missionaries_on_right || missionaries_on_right < 0)
 		{
@@ -80,34 +83,30 @@ public:
 
 	/*
 	Initializes a new instance of the CrossingState class.
-	boat_on_right:         true if the boat is located on the right bank; otherwise false.
-	missionaries_on_right: count of missionaries on the right bank; assume others are on the left bank.
-	cannibals_on_right:    count of cannibals on the right bank; assume others are on the left bank.
-	Remarks: There cannot be more than six people in a CrossingState.  Maximum of 3 missionaries
-	and 3 cannibals.  Since the state only stores the status of the right bank, there can be a 
-	minimum of 0 people if everyone has crossed sucessfully.
+	boat_on_right:         true if the boat is located on the right bank; 
+							otherwise false.
+	missionaries_on_right: count of missionaries on the right bank; assume 
+							others are on the left bank.
+	cannibals_on_right:    count of cannibals on the right bank; assume others 
+							are on the left bank.
+	Remarks: There cannot be more than six people in a CrossingState.  Maximum 
+				of 3 missionaries and 3 cannibals.  Since the state only stores 
+				the status of the right bank, there can be a minimum of 0 people
+				if everyone has crossed sucessfully.
 	*/
-	CrossingState(bool boat_on_right, int missionaries_on_right, int cannibals_on_right)
+	CrossingState(
+		bool boat_on_right, 
+		int missionaries_on_right, 
+		int cannibals_on_right)
 	{
-		if(3 < missionaries_on_right || missionaries_on_right < 0)
-		{
-			throw missxex;
-		}
-
-		if(3 < cannibals_on_right || cannibals_on_right < 0)
-		{
-			throw cannxex;
-		}
-
-		boat = boat_on_right;
-		missionaries = missionaries_on_right;
-		cannibals= cannibals_on_right;
+		Initialize(boat_on_right, missionaries_on_right, cannibals_on_right);
 	}
 
 	~CrossingState(){}
 
 	/*
-	Return a value indicating whether the provided Move is possible from this state.
+	Return a value indicating whether the provided Move is possible from this 
+	state.
 	*/
 	bool IsApplicableMove(Move m)
 	{
@@ -115,8 +114,8 @@ public:
 		// There must be enough missionaries on this side
 		// There must be enough cannibals on this side
 		return 		boat == m.BoatOnRight() 
-		&& 	m.MissionariesOnBoat() <= MissionariesHere()
-		&&  m.CannibalsOnBoat() <= CannibalsHere();
+				&& 	m.MissionariesOnBoat() <= MissionariesHere()
+				&&  m.CannibalsOnBoat() <= CannibalsHere();
 	}
 
 	/*
@@ -125,9 +124,9 @@ public:
 	bool IsSafe()
 	{
 		bool safeHere  =    (0 == MissionariesHere()) 
-		|| (CannibalsHere() <= MissionariesHere());
+						|| (CannibalsHere() <= MissionariesHere());
 		bool safeThere =    (0 == MissionariesThere()) 
-		|| (CannibalsThere() <= MissionariesThere());
+						|| (CannibalsThere() <= MissionariesThere());
 
 		return safeHere && safeThere;
 	}
