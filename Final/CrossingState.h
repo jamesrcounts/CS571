@@ -81,13 +81,27 @@ public:
 	bool IsApplicableMove(Move m)
 	{
 		// The boat must be on this side
-		if (boat != m.BoatOnRight())
-		{
-			return false;
-		}
 		// There must be enough missionaries on this side
 		// There must be enough cannibals on this side
-		return true;
+		return 		boat == m.BoatOnRight() 
+				&& 	m.MissionariesOnBoat() <= MissionariesHere()
+				&&  m.CannibalsOnBoat() <= CannibalsHere();
+	}
+
+	/*
+	Gets the count of cannibals on the river bank that has the boat.
+	*/
+	int CannibalsHere()
+	{
+		return (boat ? cannibals : 3 - cannibals);
+	}
+
+	/*
+	Gets the count of missionaries on the river bank that has the boat.
+	*/
+	int MissionariesHere()
+	{
+		return (boat ? missionaries : 3 - missionaries);
 	}
 
 
@@ -98,8 +112,8 @@ public:
 	{ 
 		stringstream ss;
 		ss << "Boat on " << (boat ? "Right" : "Left") << " bank, with ";
-		ss << (boat ? missionaries : 3 - missionaries) << " missionaries, and ";
-		ss << (boat ? cannibals : 3 - cannibals) << " cannibals.";
+		ss << MissionariesHere() << " missionaries, and ";
+		ss << CannibalsHere() << " cannibals.";
 		return ss.str();
 	}
 };

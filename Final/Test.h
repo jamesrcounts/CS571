@@ -67,15 +67,7 @@ class Tests{
 
         Program p;
         vector<Move> actual = p.GenerateMoves();
-        
-        tf.ASSERT_INT_EQUALS(expected.size(), actual.size(), tf.GetSizeMessage("GenerateAllMoves"));
-        if(expected.size() == actual.size())
-        {  
-            for (int i = 0; i < (int)expected.size(); ++i)
-            {
-                tf.ASSERT_STRING_EQUALS(expected[i], actual[i].str(), expected[i]);
-            }
-        }
+        VerifyMoves(expected, actual, "GenerateAllMoves");
     }
 
     void VerifyInitialState()
@@ -156,29 +148,6 @@ class Tests{
         VerifyCannibalException(-1, "CannibalUnderpopulation");
     }
 
-    void SelectMovesFromTheRight()
-    {
-        vector<string> expected;
-        expected.push_back("Moving Left, with 1 missionaries, and 0 cannibals.");
-        expected.push_back("Moving Left, with 2 missionaries, and 0 cannibals.");
-        expected.push_back("Moving Left, with 1 missionaries, and 1 cannibals.");
-        expected.push_back("Moving Left, with 0 missionaries, and 2 cannibals.");
-        expected.push_back("Moving Left, with 0 missionaries, and 1 cannibals.");
-
-        Program p;
-        CrossingState c = CrossingState(true, 2, 2);  
-        vector<Move> allMoves = p.GenerateMoves();
-        vector<Move> actual;
-        for (std::vector<Move>::iterator it = allMoves.begin(); it != allMoves.end(); ++it)
-        {
-            if(c.IsApplicableMove(*it))
-            {
-                actual.push_back(*it);
-            }
-        }      
-        VerifyMoves(expected, actual, "SelectMovesFromTheRight");
-    }
-
     void VerifyBoatPositionForMoveFromRight()
     {
         Move m = Move(true, 1, 1);
@@ -190,11 +159,73 @@ class Tests{
         Move m = Move(false, 1 , 1);
         tf.ASSERT_TRUE(m.BoatOnRight(), "VerifyBoatPositionForMoveFromLeft");
     }
+
+    void VerifySelectedMoves(
+        vector<string> expected,
+        bool right_boat, 
+        int missionaries, 
+        int cannibals,
+        string message)
+    {
+        Program p;
+        CrossingState c = CrossingState(right_boat, missionaries, cannibals);  
+        vector<Move> allMoves = p.GenerateMoves();
+        vector<Move> actual;
+        for (std::vector<Move>::iterator it = allMoves.begin(); it != allMoves.end(); ++it)
+        {
+            if(c.IsApplicableMove(*it))
+            {
+                actual.push_back(*it);
+            }
+        }  
+        VerifyMoves(expected, actual, message);
+    }
+
+    void SelectMovesFromTheRight()
+    {
+        vector<string> expected;
+        expected.push_back("Moving Left, with 1 missionaries, and 0 cannibals.");
+        expected.push_back("Moving Left, with 2 missionaries, and 0 cannibals.");
+        expected.push_back("Moving Left, with 1 missionaries, and 1 cannibals.");
+        expected.push_back("Moving Left, with 0 missionaries, and 2 cannibals.");
+        expected.push_back("Moving Left, with 0 missionaries, and 1 cannibals.");
+        VerifySelectedMoves(expected, true, 2, 2, "SelectMovesFromTheRight");
+    }
+
+    void SelectMissionaryMovesFromLeft()
+    {
+        vector<string> expected;
+        expected.push_back("Moving Right, with 1 missionaries, and 0 cannibals.");
+        expected.push_back("Moving Right, with 2 missionaries, and 0 cannibals.");
+        VerifySelectedMoves(expected, false, 0, 3, "SelectMissionaryMovesFromLeft");
+    }
+
+    void SelectMovesWithMixedFromRight()
+    {
+        vector<string> expected;
+        expected.push_back("Moving Left, with 1 missionaries, and 0 cannibals.");
+        expected.push_back("Moving Left, with 1 missionaries, and 1 cannibals.");
+        expected.push_back("Moving Left, with 0 missionaries, and 1 cannibals.");
+        VerifySelectedMoves(expected, true, 1, 1, "SelectMixedMoveFromRight");      
+    }
+
+    void SelectMovesWithMixedFromLeft()
+    {
+        vector<string> expected;
+        expected.push_back("Moving Right, with 1 missionaries, and 0 cannibals.");
+        expected.push_back("Moving Right, with 1 missionaries, and 1 cannibals.");
+        expected.push_back("Moving Right, with 0 missionaries, and 1 cannibals.");
+        VerifySelectedMoves(expected, false, 2, 2, "SelectMovesWithMixedFromLeft");
+    }
+
 public:
 
     // Execute all configured unit tests.
     void RunTests()
     {
+        SelectMovesWithMixedFromLeft();
+        SelectMovesWithMixedFromRight();
+        SelectMissionaryMovesFromLeft();
         VerifyBoatPositionForMoveFromRight();
         VerifyBoatPositionForMoveFromLeft();
         SelectMovesFromTheRight();

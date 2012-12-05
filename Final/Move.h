@@ -68,13 +68,29 @@ public:
     }
 
     /*
+    Gets the number of cannibals on the boat.
+    */
+    int CannibalsOnBoat()
+    {
+        return cannibals_moving;
+    }
+
+    /*
+    Gets the number of missionaries on the boat.
+    */
+    int MissionariesOnBoat()
+    {
+        return missionaries_moving;
+    }
+
+    /*
     Creates a string representation of the object for display and testing.
     */
     string str(){
         stringstream ss;
         ss << "Moving " << (boat_moving_right ? "Right" : "Left");
-        ss << ", with " << missionaries_moving << " missionaries, and ";
-        ss << cannibals_moving << " cannibals.";
+        ss << ", with " << MissionariesOnBoat() << " missionaries, and ";
+        ss << CannibalsOnBoat() << " cannibals.";
         return ss.str();
     }
 };
