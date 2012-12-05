@@ -218,11 +218,41 @@ class Tests{
         VerifySelectedMoves(expected, false, 2, 2, "SelectMovesWithMixedFromLeft");
     }
 
+    void MoveTwoCannibalsLeft()
+    {
+        CrossingState c = CrossingState(true, 3, 3);
+        CrossingState expected = CrossingState(false, 3, 1);
+        Move m = Move(false, 0, 2);
+        CrossingState actual = c.GenerateSuccessor(m);
+        tf.ASSERT_STRING_EQUALS(expected.str(), actual.str(), "MoveTwoCannibalsLeft");
+    }
+
+    void MoveTwoMissionariesRight()
+    {
+        CrossingState c = CrossingState(false, 0, 0);
+        CrossingState expected = CrossingState(true, 2, 0);
+        Move m = Move(true, 2, 0);
+        CrossingState actual = c.GenerateSuccessor(m);
+        tf.ASSERT_STRING_EQUALS(expected.str(), actual.str(), "MoveTwoMissionariesRight");
+    }
+
+    void MoveMixedLeft()
+    {
+        CrossingState c = CrossingState(true, 1, 1);
+        CrossingState expected = CrossingState(false, 0, 0);
+        Move m = Move(false, 1, 1);
+        CrossingState actual = c.GenerateSuccessor(m);
+        tf.ASSERT_STRING_EQUALS(expected.str(), actual.str(), "MoveMixedLeft");
+    }
+
 public:
 
     // Execute all configured unit tests.
     void RunTests()
     {
+        MoveMixedLeft();
+        MoveTwoMissionariesRight();
+        MoveTwoCannibalsLeft();
         SelectMovesWithMixedFromLeft();
         SelectMovesWithMixedFromRight();
         SelectMissionaryMovesFromLeft();

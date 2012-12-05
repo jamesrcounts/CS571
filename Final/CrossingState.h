@@ -97,6 +97,24 @@ public:
 	}
 
 	/*
+	Generates the state that would result from making the provided move
+	from this state.
+	*/
+	CrossingState GenerateSuccessor(Move m)
+	{
+		int missionaries_on_right = (	m.MovingRight() ?
+									  	missionaries + m.MissionariesOnBoat() : 
+									  	missionaries - m.MissionariesOnBoat());	
+		int cannibals_on_right 	  = (	m.MovingRight() ?
+										cannibals + m.CannibalsOnBoat() :
+										cannibals - m.CannibalsOnBoat());
+		return CrossingState(
+			m.MovingRight(), 
+			missionaries_on_right, 
+			cannibals_on_right);
+	}
+
+	/*
 	Gets the count of missionaries on the river bank that has the boat.
 	*/
 	int MissionariesHere()

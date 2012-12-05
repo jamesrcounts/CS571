@@ -68,6 +68,14 @@ public:
     }
 
     /*
+    True if the boat is moving to the right bank; otherwise false.
+    */
+    bool MovingRight()
+    {
+        return boat_moving_right;
+    }
+
+    /*
     Gets the number of cannibals on the boat.
     */
     int CannibalsOnBoat()
