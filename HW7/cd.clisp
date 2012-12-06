@@ -1,10 +1,29 @@
 ;; CS571 Counts - Conceptual Dependency Shell
 (setf (get 'atrans 'template) '(ATRANS ACTOR #\( AFILLER #\) OBJECT #\( OFILLER #\) TO #\( TFILLER #\) ))
 (setf (get 'ptrans 'template) '(PTRANS ACTOR #\( AFILLER #\) TO #\( TFILLER #\) ))
-(setf (get 'walked 'category) 'ptrans)
-(setf (get 'gave 'category) 'atrans)
 
-(defun prompt () (terpri) (princ "$ "))
+; ptrans
+(setf (get 'crawled 'category) 'ptrans)
+(setf (get 'walked 'category) 'ptrans)
+(setf (get 'ran 'category) 'ptrans)
+(setf (get 'rode 'category) 'ptrans)
+(setf (get 'flew 'category) 'ptrans)
+(setf (get 'jumped 'category) 'ptrans)
+(setf (get 'teleported 'category) 'ptrans)
+
+; atrans
+(setf (get 'gave 'category) 'atrans)
+(setf (get 'take 'category) 'atrans)
+(setf (get 'deliver 'category) 'atrans)
+(setf (get 'reply 'category) 'atrans)
+(setf (get 'sold 'category) 'atrans)
+(setf (get 'paid 'category) 'atrans)
+
+
+(defun prompt (message) 
+    (terpri)
+    (princ message)
+    (princ " $ "))
 (defun ack () (princ "OK"))
 
 (defun main ()
@@ -12,7 +31,7 @@
         (verb actor to object cd cat)
 
         ; get verb and retrieve category
-        (prompt) (setq verb (read))
+        (prompt "VERB") (setq verb (read))
         (setq cat (get verb 'category))
         (ack)
 
@@ -33,20 +52,20 @@
                 (setq cd (get cat 'template))
 
                 ; get actor
-                (prompt) (setq actor (read))
+                (prompt "ACTOR") (setq actor (read))
                 (setq cd (subst actor 'AFILLER cd))
                 (ack)
 
                 ; atrans?
                 (when (eq 'atrans cat) 
                     ; get object
-                    (prompt) (setq object (read))
+                    (prompt "OBJECT") (setq object (read))
                     (setq cd (subst object 'OFILLER cd))
                     (ack)
                 )
 
                 ; get target
-                (prompt) (setq to (read))
+                (prompt "TO") (setq to (read))
                 (setq cd (subst to 'TFILLER cd))
                 (ack)
             )
