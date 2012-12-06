@@ -1,0 +1,11 @@
+
+VERB $ walked
+OK
+ACTOR $ mary
+OK
+TO $ store
+OK
+(PTRANS ACTOR ( MARY ) TO ( STORE ))
+[count009@empress HW7]$ 
+
+

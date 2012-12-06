@@ -5,3 +5,5 @@
 
 (print (interleave '(1 2 3 4) '(a b)))
 (print (interleave '(1 2) '(a b c d)))
+(print (interleave '(cat dog bird) '(meow woof)))
+(print (interleave '(man house poops woods god says ha) '(lives bear)))
