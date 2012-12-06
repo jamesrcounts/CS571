@@ -1,4 +1,14 @@
+-------------interleave.clisp----
+[count009@empress HW7]$ clisp interleave.clisp 
 
+(1 A 2 B 3 4) 
+(1 A 2 B C D) 
+(CAT MEOW DOG WOOF BIRD) 
+(MAN LIVES HOUSE BEAR POOPS WOODS GOD SAYS HA) 
+[count009@empress HW7]$ 
+
+
+-------------cd.clisp------------
 VERB $ walked
 OK
 ACTOR $ mary
@@ -8,4 +18,33 @@ OK
 (PTRANS ACTOR ( MARY ) TO ( STORE ))
 [count009@empress HW7]$ 
 
+VERB $ teleported
+OK
+ACTOR $ me
+OK
+TO $ mars
+OK
+(PTRANS ACTOR ( ME ) TO ( MARS ))
+[count009@empress HW7]$ 
 
+VERB $ gave
+OK
+ACTOR $ jim
+OK
+OBJECT $ money
+OK
+TO $ csusm
+OK
+(ATRANS ACTOR ( JIM ) OBJECT ( MONEY ) TO ( CSUSM ))
+[count009@empress HW7]$ 
+
+VERB $ take
+OK
+ACTOR $ jim
+OK
+OBJECT $ soup
+OK
+TO $ friend
+OK
+(ATRANS ACTOR ( JIM ) OBJECT ( SOUP ) TO ( FRIEND ))
+[count009@empress HW7]$ 
