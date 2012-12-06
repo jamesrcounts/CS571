@@ -1,0 +1,19 @@
+COUNTS - CS 571 - HW7
+
+README
+
+To see the results of my test runs, open tests.txt.
+
+To run these yourself, just run these scripts from the command line, don't bother with starting 
+the CLISP REPL.
+
+Question #1
+
+$ clisp interleave.clisp
+
+Question #2
+
+$ clisp cd.clisp
+
+An interactive shell will start and demand that you provide a verb.  After building 1 CD it will 
+show you the result and quit.  To see another, run again.  
