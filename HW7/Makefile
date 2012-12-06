@@ -7,16 +7,10 @@
 CC = clisp
 
 # .clisp source files
-SRCS = interleave.clisp
+SRCS = cd.clisp interleave.clisp 
 
 # target (output)
 PROG = $(SRCS:.clisp=.fas) 
-
-# object files for the target. 
-OBJ = $(SRCS:.clisp=.fas)
-
-run: $(PROG)
-	$(CC) $(SRCS)
 
 $(PROG): $(SRCS) 
 	$(CC) -c $(SRCS) 

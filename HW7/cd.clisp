@@ -1,0 +1,61 @@
+;; CS571 Counts - Conceptual Dependency Shell
+(setf (get 'atrans 'template) '(ATRANS ACTOR #\( AFILLER #\) OBJECT #\( OFILLER #\) TO #\( TFILLER #\) ))
+(setf (get 'ptrans 'template) '(PTRANS ACTOR #\( AFILLER #\) TO #\( TFILLER #\) ))
+(setf (get 'walked 'category) 'ptrans)
+(setf (get 'gave 'category) 'atrans)
+
+(defun prompt () (terpri) (princ "$ "))
+(defun ack () (princ "OK"))
+
+(defun main ()
+    (prog
+        (verb actor to object cd cat)
+
+        ; get verb and retrieve category
+        (prompt) (setq verb (read))
+        (setq cat (get verb 'category))
+        (ack)
+
+        ; known or unknown?
+        (cond 
+            ;unknown
+            (
+                ;predicate
+                (not cat)
+                ; body
+                (terpri) (princ "I don't know what that is.")
+            )
+            ;known
+            (T
+                ; body
+
+                ; get the cd template
+                (setq cd (get cat 'template))
+
+                ; get actor
+                (prompt) (setq actor (read))
+                (setq cd (subst actor 'AFILLER cd))
+                (ack)
+
+                ; atrans?
+                (when (eq 'atrans cat) 
+                    ; get object
+                    (prompt) (setq object (read))
+                    (setq cd (subst object 'OFILLER cd))
+                    (ack)
+                )
+
+                ; get target
+                (prompt) (setq to (read))
+                (setq cd (subst to 'TFILLER cd))
+                (ack)
+            )
+        )
+
+        ; display CD if known; otherwise NIL
+        (terpri)(princ cd)
+    )
+)
+
+; bootstrapper
+(main)
