@@ -1,0 +1,7 @@
+(defun interleave (l1 l2)
+	(cond ((and (eq l1 nil) (eq l2 nil)) nil)
+		((eq l1 nil) (interleave l2 l1))
+		(t (cons (first l1) (interleave l2 (rest l1))))))
+
+(print (interleave '(1 2 3 4) '(a b)))
+(print (interleave '(1 2) '(a b c d)))
