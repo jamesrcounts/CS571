@@ -153,6 +153,11 @@
     (prog (cat L1 L2 again)
         (declare (ignore L1))
         (declare (ignore L2))
+
+	; announce
+	(princ "CS571 Homework 7")(terpri)
+	(princ "Jim Counts")
+
         ; get template and symbols
 L1      (setq cat (get-catdata))
 
