@@ -15,5 +15,6 @@ Question #2
 
 $ clisp cd.clisp
 
-An interactive shell will start and demand that you provide a verb.  After building 1 CD it will 
-show you the result and quit.  To see another, run again.  
+An interactive shell will start and demand that you provide a verb.  Then it will 
+demand fillers.  After building 1 CD it will show you the result and ask if you want
+to go again.

@@ -9,42 +9,53 @@
 
 
 -------------cd.clisp------------
+[count009@empress HW7]$ clisp cd.clisp
+CS571 Homework 7
+Jim Counts
 VERB $ walked
-OK
-ACTOR $ mary
-OK
-TO $ store
-OK
+(PTRANS ACTOR ( AFILLER ) TO ( TFILLER ))
+FILLER $ mary
+(PTRANS ACTOR ( MARY ) TO ( TFILLER ))
+FILLER $ store
 (PTRANS ACTOR ( MARY ) TO ( STORE ))
-[count009@empress HW7]$ 
+Again? (Y/N) $ n
+
+[count009@empress HW7]$ clear
+[count009@empress HW7]$ clisp cd.clisp
+CS571 Homework 7
+Jim Counts
+VERB $ walked
+(PTRANS ACTOR ( AFILLER ) TO ( TFILLER ))
+FILLER $ mary
+(PTRANS ACTOR ( MARY ) TO ( TFILLER ))
+FILLER $ store
+(PTRANS ACTOR ( MARY ) TO ( STORE ))
+Again? (Y/N) $ y
 
 VERB $ teleported
-OK
-ACTOR $ me
-OK
-TO $ mars
-OK
+(PTRANS ACTOR ( AFILLER ) TO ( TFILLER ))
+FILLER $ me
+(PTRANS ACTOR ( ME ) TO ( TFILLER ))
+FILLER $ mars
 (PTRANS ACTOR ( ME ) TO ( MARS ))
-[count009@empress HW7]$ 
+Again? (Y/N) $ y
 
 VERB $ gave
-OK
-ACTOR $ jim
-OK
-OBJECT $ money
-OK
-TO $ csusm
-OK
+(ATRANS ACTOR ( AFILLER ) OBJECT ( OFILLER ) TO ( TFILLER ))
+FILLER $ jim
+(ATRANS ACTOR ( JIM ) OBJECT ( OFILLER ) TO ( TFILLER ))
+FILLER $ money
+(ATRANS ACTOR ( JIM ) OBJECT ( MONEY ) TO ( TFILLER ))
+FILLER $ csusm
 (ATRANS ACTOR ( JIM ) OBJECT ( MONEY ) TO ( CSUSM ))
-[count009@empress HW7]$ 
+Again? (Y/N) $ y
 
 VERB $ take
-OK
-ACTOR $ jim
-OK
-OBJECT $ soup
-OK
-TO $ friend
-OK
+(ATRANS ACTOR ( AFILLER ) OBJECT ( OFILLER ) TO ( TFILLER ))
+FILLER $ jim
+(ATRANS ACTOR ( JIM ) OBJECT ( OFILLER ) TO ( TFILLER ))
+FILLER $ soup
+(ATRANS ACTOR ( JIM ) OBJECT ( SOUP ) TO ( TFILLER ))
+FILLER $ friend
 (ATRANS ACTOR ( JIM ) OBJECT ( SOUP ) TO ( FRIEND ))
-[count009@empress HW7]$ 
+Again? (Y/N) $
