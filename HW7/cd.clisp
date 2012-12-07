@@ -1,6 +1,9 @@
 ;; CS571 Counts - Conceptual Dependency Shell
 (setf (get 'atrans 'template) '(ATRANS ACTOR #\( AFILLER #\) OBJECT #\( OFILLER #\) TO #\( TFILLER #\) ))
 (setf (get 'ptrans 'template) '(PTRANS ACTOR #\( AFILLER #\) TO #\( TFILLER #\) ))
+(setf (get 'fillers 'actor) 'AFILLER)
+(setf (get 'fillers 'to) 'TFILLER)
+(setf (get 'fillers 'object) 'OFILLER)
 
 ; ptrans
 (setf (get 'crawled 'category) 'ptrans)
@@ -19,62 +22,164 @@
 (setf (get 'sold 'category) 'atrans)
 (setf (get 'paid 'category) 'atrans)
 
+; actors
+(setf (get 'mary 'category) 'actor)
+(setf (get 'me 'category) 'actor)
+(setf (get 'jim 'category) 'actor)
+(setf (get 'john 'category) 'actor)
+(setf (get 'kaylee 'category) 'actor)
+
+; targets
+(setf (get 'store 'category) 'to)
+(setf (get 'mars 'category) 'to)
+(setf (get 'csusm 'category) 'to)
+(setf (get 'friend 'category) 'to)
+(setf (get 'library 'category) 'to)
+
+; objects 
+(setf (get 'soup 'category) 'object)
+(setf (get 'money 'category) 'object)
+(setf (get 'candy 'category) 'object)
+(setf (get 'book 'category) 'object)
+(setf (get 'medicine 'category) 'object)
 
 (defun prompt (message) 
     (terpri)
     (princ message)
     (princ " $ "))
-(defun ack () (princ "OK"))
+
+(defun ack (condep) (princ condep))
+
+; get empty condep and symbol list
+(defun get-catdata () 
+    (prompt "VERB")
+    (let ((verb (read)) cat condep)
+        (setq cat (get verb 'category))
+        (setq condep (get cat 'template))
+        (ack condep)
+
+    ; ptrans or atrans?
+    (cond
+        ; ptrans
+        (
+            ; predicate
+            (eq 'ptrans cat)
+            ; body
+            (cons condep '(AFILLER TFILLER)))
+        ; atrans
+        (
+            ; predicate
+            (eq 'atrans cat)
+            ; body
+            (cons condep '(AFILLER OFILLER TFILLER)))
+        ; unknown
+        (T
+            ;body
+            (terpri) (princ "I don't know what that is.")
+            (get-catdata)))))
+
+(defun get-category (symbol)
+    (get symbol 'category))
+
+(defun get-category-filler (symbol)
+    (get 'fillers (get-category symbol)))
+
+(defun update-cd (cat filler)
+    (let (
+        (condep (first cat)) 
+        (symbols (rest cat)) 
+        (name (get-category-filler filler)))
+    ; known or unknown?
+    (cond
+        ; unknown
+        (
+            ; predicate
+            (not name)
+            ; body
+            (terpri) (princ "I don't know what that is.")
+            NIL)
+        ; known
+        (T
+            ;body
+
+            ; set or unset?
+            (cond
+                ; set
+                (
+                    ;predicate                    
+                    (not (find name symbols))
+                    ;body
+                    (terpri) (princ "You already filled that slot.")
+                    NIL)
+                ; unset
+                (T
+                    ;body
+                    (cons (subst filler name condep) symbols)))))))
+
+
+(defun update-symbols (cat filler)
+    (let ((category (get-category-filler filler)))
+        (remove category cat)))
+
+(defun get-filler (cat)
+    (prompt "FILLER")
+    (let ((filler (read)) update)
+        (setq update (update-cd cat filler))
+    ; known or unknown
+    (cond
+        ; unknown
+        (
+            ;predicate
+            (not update)
+            ;body
+            (setq cat (get-filler cat)))
+        ; known
+        (T
+            ;body
+            (setq cat update)
+            (setq cat (update-symbols cat filler))))
+
+    (ack (first cat))
+    
+    ; more symbols?
+    (when (rest cat)
+        ; yes ask again
+        (setq cat (get-filler cat)))
+
+    ; done filling condep
+    cat))
 
 (defun main ()
-    (prog
-        (verb actor to object cd cat)
+    (prog (cat L1 L2 again)
+        (declare (ignore L1))
+        (declare (ignore L2))
+        ; get template and symbols
+L1      (setq cat (get-catdata))
 
-        ; get verb and retrieve category
-        (prompt "VERB") (setq verb (read))
-        (setq cat (get verb 'category))
-        (ack)
+        ; get fillers (recursively)
+        (get-filler cat)
 
-        ; known or unknown?
+        ; go again?
+L2      (prompt "Again? (Y/N)")
+        (setq again (read))
+        ; y/n/unknown?
         (cond 
-            ;unknown
+            ;y 
             (
                 ;predicate
-                (not cat)
-                ; body
-                (terpri) (princ "I don't know what that is.")
-            )
-            ;known
+                (eq again 'y)
+                ;body
+                (go L1))
+            ;n
+            (
+                ;predicate
+                (eq again 'n)
+                ;body
+                (exit)) 
+            ;unknown
             (T
-                ; body
-
-                ; get the cd template
-                (setq cd (get cat 'template))
-
-                ; get actor
-                (prompt "ACTOR") (setq actor (read))
-                (setq cd (subst actor 'AFILLER cd))
-                (ack)
-
-                ; atrans?
-                (when (eq 'atrans cat) 
-                    ; get object
-                    (prompt "OBJECT") (setq object (read))
-                    (setq cd (subst object 'OFILLER cd))
-                    (ack)
-                )
-
-                ; get target
-                (prompt "TO") (setq to (read))
-                (setq cd (subst to 'TFILLER cd))
-                (ack)
-            )
-        )
-
-        ; display CD if known; otherwise NIL
-        (terpri)(princ cd)
-    )
-)
+                ;body
+                (go L2)))))
 
 ; bootstrapper
 (main)
