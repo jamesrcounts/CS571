@@ -44,6 +44,9 @@ public:
         return GetArgumentAt(argc, argv, 1, "").compare("TEST") == 0;
     }
 
+    /*
+    Generate every theoretically possible move.
+    */
     vector<Move> GenerateMoves()
     {
         vector<Move> v;
