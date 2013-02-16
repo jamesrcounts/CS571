@@ -1,0 +1,169 @@
+
+CS571 Final Project
+Jim Counts
+
+
+*Expanding: Boat on Right bank, with 3 missionaries, and 3 cannibals.
+
+Considering: (4092) for Boat on Left bank, with 1 missionaries, and 0 cannibals.
+	via Moving Left, with 1 missionaries, and 0 cannibals.
+
+Considering: (4092) for Boat on Left bank, with 2 missionaries, and 0 cannibals.
+	via Moving Left, with 2 missionaries, and 0 cannibals.
+
+Considering: (5) for Boat on Left bank, with 1 missionaries, and 1 cannibals.
+	via Moving Left, with 1 missionaries, and 1 cannibals.
+
+Considering: (5) for Boat on Left bank, with 0 missionaries, and 2 cannibals.
+	via Moving Left, with 0 missionaries, and 2 cannibals.
+
+Considering: (6) for Boat on Left bank, with 0 missionaries, and 1 cannibals.
+	via Moving Left, with 0 missionaries, and 1 cannibals.
+
+*Expanding: Boat on Left bank, with 1 missionaries, and 1 cannibals.
+
+Considering: (6) for Boat on Right bank, with 3 missionaries, and 2 cannibals.
+	via Moving Right, with 1 missionaries, and 0 cannibals.
+
+Considering: (8) for Boat on Right bank, with 3 missionaries, and 3 cannibals.
+	via Moving Right, with 1 missionaries, and 1 cannibals.
+
+Considering: (4092) for Boat on Right bank, with 2 missionaries, and 3 cannibals.
+	via Moving Right, with 0 missionaries, and 1 cannibals.
+
+*Expanding: Boat on Right bank, with 3 missionaries, and 2 cannibals.
+
+Considering: (6) for Boat on Left bank, with 1 missionaries, and 1 cannibals.
+	via Moving Left, with 1 missionaries, and 0 cannibals.
+
+Considering: (4092) for Boat on Left bank, with 2 missionaries, and 1 cannibals.
+	via Moving Left, with 2 missionaries, and 0 cannibals.
+
+Considering: (4092) for Boat on Left bank, with 1 missionaries, and 2 cannibals.
+	via Moving Left, with 1 missionaries, and 1 cannibals.
+
+Considering: (4) for Boat on Left bank, with 0 missionaries, and 3 cannibals.
+	via Moving Left, with 0 missionaries, and 2 cannibals.
+
+Considering: (5) for Boat on Left bank, with 0 missionaries, and 2 cannibals.
+	via Moving Left, with 0 missionaries, and 1 cannibals.
+
+*Expanding: Boat on Left bank, with 0 missionaries, and 3 cannibals.
+
+Considering: (7) for Boat on Right bank, with 3 missionaries, and 2 cannibals.
+	via Moving Right, with 0 missionaries, and 2 cannibals.
+
+Considering: (5) for Boat on Right bank, with 3 missionaries, and 1 cannibals.
+	via Moving Right, with 0 missionaries, and 1 cannibals.
+
+*Expanding: Boat on Right bank, with 3 missionaries, and 1 cannibals.
+
+Considering: (4092) for Boat on Left bank, with 1 missionaries, and 2 cannibals.
+	via Moving Left, with 1 missionaries, and 0 cannibals.
+
+Considering: (3) for Boat on Left bank, with 2 missionaries, and 2 cannibals.
+	via Moving Left, with 2 missionaries, and 0 cannibals.
+
+Considering: (4092) for Boat on Left bank, with 1 missionaries, and 3 cannibals.
+	via Moving Left, with 1 missionaries, and 1 cannibals.
+
+Considering: (5) for Boat on Left bank, with 0 missionaries, and 3 cannibals.
+	via Moving Left, with 0 missionaries, and 1 cannibals.
+
+*Expanding: Boat on Left bank, with 2 missionaries, and 2 cannibals.
+
+Considering: (4092) for Boat on Right bank, with 2 missionaries, and 1 cannibals.
+	via Moving Right, with 1 missionaries, and 0 cannibals.
+
+Considering: (6) for Boat on Right bank, with 3 missionaries, and 1 cannibals.
+	via Moving Right, with 2 missionaries, and 0 cannibals.
+
+Considering: (5) for Boat on Right bank, with 2 missionaries, and 2 cannibals.
+	via Moving Right, with 1 missionaries, and 1 cannibals.
+
+Considering: (4092) for Boat on Right bank, with 1 missionaries, and 3 cannibals.
+	via Moving Right, with 0 missionaries, and 2 cannibals.
+
+Considering: (4092) for Boat on Right bank, with 1 missionaries, and 2 cannibals.
+	via Moving Right, with 0 missionaries, and 1 cannibals.
+
+*Expanding: Boat on Right bank, with 2 missionaries, and 2 cannibals.
+
+Considering: (4092) for Boat on Left bank, with 2 missionaries, and 1 cannibals.
+	via Moving Left, with 1 missionaries, and 0 cannibals.
+
+Considering: (3) for Boat on Left bank, with 3 missionaries, and 1 cannibals.
+	via Moving Left, with 2 missionaries, and 0 cannibals.
+
+Considering: (4) for Boat on Left bank, with 2 missionaries, and 2 cannibals.
+	via Moving Left, with 1 missionaries, and 1 cannibals.
+
+Considering: (4092) for Boat on Left bank, with 1 missionaries, and 3 cannibals.
+	via Moving Left, with 0 missionaries, and 2 cannibals.
+
+Considering: (4092) for Boat on Left bank, with 1 missionaries, and 2 cannibals.
+	via Moving Left, with 0 missionaries, and 1 cannibals.
+
+*Expanding: Boat on Left bank, with 3 missionaries, and 1 cannibals.
+
+Considering: (4092) for Boat on Right bank, with 1 missionaries, and 2 cannibals.
+	via Moving Right, with 1 missionaries, and 0 cannibals.
+
+Considering: (6) for Boat on Right bank, with 2 missionaries, and 2 cannibals.
+	via Moving Right, with 2 missionaries, and 0 cannibals.
+
+Considering: (4092) for Boat on Right bank, with 1 missionaries, and 3 cannibals.
+	via Moving Right, with 1 missionaries, and 1 cannibals.
+
+Considering: (4) for Boat on Right bank, with 0 missionaries, and 3 cannibals.
+	via Moving Right, with 0 missionaries, and 1 cannibals.
+
+*Expanding: Boat on Right bank, with 0 missionaries, and 3 cannibals.
+
+Considering: (2) for Boat on Left bank, with 3 missionaries, and 2 cannibals.
+	via Moving Left, with 0 missionaries, and 2 cannibals.
+
+Considering: (4) for Boat on Left bank, with 3 missionaries, and 1 cannibals.
+	via Moving Left, with 0 missionaries, and 1 cannibals.
+
+*Expanding: Boat on Left bank, with 3 missionaries, and 2 cannibals.
+
+Considering: (3) for Boat on Right bank, with 1 missionaries, and 1 cannibals.
+	via Moving Right, with 1 missionaries, and 0 cannibals.
+
+Considering: (4092) for Boat on Right bank, with 2 missionaries, and 1 cannibals.
+	via Moving Right, with 2 missionaries, and 0 cannibals.
+
+Considering: (4092) for Boat on Right bank, with 1 missionaries, and 2 cannibals.
+	via Moving Right, with 1 missionaries, and 1 cannibals.
+
+Considering: (5) for Boat on Right bank, with 0 missionaries, and 3 cannibals.
+	via Moving Right, with 0 missionaries, and 2 cannibals.
+
+Considering: (3) for Boat on Right bank, with 0 missionaries, and 2 cannibals.
+	via Moving Right, with 0 missionaries, and 1 cannibals.
+
+*Expanding: Boat on Right bank, with 1 missionaries, and 1 cannibals.
+
+Considering: (3) for Boat on Left bank, with 3 missionaries, and 2 cannibals.
+	via Moving Left, with 1 missionaries, and 0 cannibals.
+
+Considering: (1) for Boat on Left bank, with 3 missionaries, and 3 cannibals.
+	via Moving Left, with 1 missionaries, and 1 cannibals.
+
+Considering: (4092) for Boat on Left bank, with 2 missionaries, and 3 cannibals.
+	via Moving Left, with 0 missionaries, and 1 cannibals.
+
+Path to solution:
+Boat on Right bank, with 3 missionaries, and 3 cannibals.
+Boat on Left bank, with 1 missionaries, and 1 cannibals.
+Boat on Right bank, with 3 missionaries, and 2 cannibals.
+Boat on Left bank, with 0 missionaries, and 3 cannibals.
+Boat on Right bank, with 3 missionaries, and 1 cannibals.
+Boat on Left bank, with 2 missionaries, and 2 cannibals.
+Boat on Right bank, with 2 missionaries, and 2 cannibals.
+Boat on Left bank, with 3 missionaries, and 1 cannibals.
+Boat on Right bank, with 0 missionaries, and 3 cannibals.
+Boat on Left bank, with 3 missionaries, and 2 cannibals.
+Boat on Right bank, with 1 missionaries, and 1 cannibals.
+Boat on Left bank, with 3 missionaries, and 3 cannibals.
