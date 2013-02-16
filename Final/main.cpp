@@ -5,8 +5,8 @@
 //  Created by Jim Counts
 //  CS 571 - AI
 //  Final Project
-//  
-//  This program implements an A* search to solve the Missinaries & Cannibals 
+//
+//  This program implements an A* search to solve the Missinaries & Cannibals
 //  puzzle.
 //******************************************************************************
 
@@ -36,7 +36,7 @@ int main(int argc, const char * argv[])
         Tests t;
         t.RunTests();
     }
-    else 
+    else
     {
         // User wants to run the program.
         p.Evaluate();

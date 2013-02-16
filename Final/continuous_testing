@@ -87,7 +87,7 @@ end
 
 def monitor
   if changes_have_occured
-    errors = get_errors_in(`make test`)
+    errors = get_errors_in(`make test 2>&1`)
     notify(BuildMessage.new(errors))
   end
 end

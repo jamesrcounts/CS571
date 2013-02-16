@@ -7,7 +7,7 @@
 
 using namespace std;
 
-class Tests{
+class Tests {
     TestFramework tf;
 
     void VerifyMoveLeft()
@@ -15,7 +15,7 @@ class Tests{
         string expected = "Moving Left, with 1 missionaries, and 1 cannibals.";
 
         Move m = Move(false, 1, 1);
-        tf.ASSERT_STRING_EQUALS( expected,m.str(), "VerifyMoveLeft");     
+        tf.ASSERT_STRING_EQUALS( expected,m.str(), "VerifyMoveLeft");
     }
 
     void VerifyMoveRight()
@@ -30,7 +30,7 @@ class Tests{
         string expected = "Too many people in the boat!";
         try
         {
-            Move m = Move(true, 2, 1);            
+            Move m = Move(true, 2, 1);
             tf.ASSERT_TRUE(false, "VerifyMoveException Excpected Exception.");
         }
         catch(exception& e)
@@ -40,21 +40,21 @@ class Tests{
     }
 
     void VerifyMoves(
-        vector<string> expected, 
-        vector<Move> actual, 
+        vector<string> expected,
+        vector<Move> actual,
         string message)
-    {        
+    {
         tf.ASSERT_INT_EQUALS(
-            expected.size(), 
-            actual.size(), 
+            expected.size(),
+            actual.size(),
             tf.GetSizeMessage(message));
         if(expected.size() == actual.size())
-        {  
+        {
             for (int i = 0; i < (int)expected.size(); ++i)
             {
                 tf.ASSERT_STRING_EQUALS(
-                    expected[i], 
-                    actual[i].str(), 
+                    expected[i],
+                    actual[i].str(),
                     expected[i]);
             }
         }
@@ -82,7 +82,7 @@ class Tests{
     void VerifyInitialState()
     {
         string expected = "Boat on Right bank, with 3 missionaries, and 3 cannibals.";
-        
+
         CrossingState c = CrossingState(true, 3, 3);
         tf.ASSERT_STRING_EQUALS(expected, c.str(), "VerifyInitialState");
     }
@@ -100,8 +100,8 @@ class Tests{
 
         CrossingState c = CrossingState(true, 2, 1);
         tf.ASSERT_STRING_EQUALS(
-            expected, 
-            c.str(), 
+            expected,
+            c.str(),
             "VerifyIntermediateRightState");
     }
 
@@ -111,15 +111,15 @@ class Tests{
 
         CrossingState c = CrossingState(false, 2, 1);
         tf.ASSERT_STRING_EQUALS(
-            expected, 
-            c.str(), 
+            expected,
+            c.str(),
             "VerifyIntermediateLeftState");
     }
 
     void VerifyStateException(
-        int missionaries, 
-        int cannibals, 
-        bool for_missionaries, 
+        int missionaries,
+        int cannibals,
+        bool for_missionaries,
         string message)
     {
         string expected = "Too many or too few ";
@@ -128,8 +128,8 @@ class Tests{
 
         try
         {
-            CrossingState c = CrossingState(true, missionaries, cannibals); 
-            tf.ASSERT_TRUE(false, message + " expected exception.");            
+            CrossingState c = CrossingState(true, missionaries, cannibals);
+            tf.ASSERT_TRUE(false, message + " expected exception.");
         }
         catch(exception& e)
         {
@@ -181,25 +181,25 @@ class Tests{
 
     void VerifySelectedMoves(
         vector<string> expected,
-        bool right_boat, 
-        int missionaries, 
+        bool right_boat,
+        int missionaries,
         int cannibals,
         string message)
     {
         Program p;
-        CrossingState c = CrossingState(right_boat, missionaries, cannibals);  
+        CrossingState c = CrossingState(right_boat, missionaries, cannibals);
         vector<Move> allMoves = p.GenerateMoves();
         vector<Move> actual;
         for (
-            std::vector<Move>::iterator it = allMoves.begin(); 
-            it != allMoves.end(); 
+            std::vector<Move>::iterator it = allMoves.begin();
+            it != allMoves.end();
             ++it)
         {
             if(c.IsApplicableMove(*it))
             {
                 actual.push_back(*it);
             }
-        }  
+        }
         VerifyMoves(expected, actual, message);
     }
 
@@ -228,7 +228,7 @@ class Tests{
         expected.push_back("Moving Left, with 1 missionaries, and 0 cannibals.");
         expected.push_back("Moving Left, with 1 missionaries, and 1 cannibals.");
         expected.push_back("Moving Left, with 0 missionaries, and 1 cannibals.");
-        VerifySelectedMoves(expected, true, 1, 1, "SelectMixedMoveFromRight");      
+        VerifySelectedMoves(expected, true, 1, 1, "SelectMixedMoveFromRight");
     }
 
     void SelectMovesWithMixedFromLeft()
@@ -247,8 +247,8 @@ class Tests{
         Move m = Move(false, 0, 2);
         CrossingState actual = c.GenerateSuccessor(m);
         tf.ASSERT_STRING_EQUALS(
-            expected.str(), 
-            actual.str(), 
+            expected.str(),
+            actual.str(),
             "MoveTwoCannibalsLeft");
     }
 
@@ -259,8 +259,8 @@ class Tests{
         Move m = Move(true, 2, 0);
         CrossingState actual = c.GenerateSuccessor(m);
         tf.ASSERT_STRING_EQUALS(
-            expected.str(), 
-            actual.str(), 
+            expected.str(),
+            actual.str(),
             "MoveTwoMissionariesRight");
     }
 
@@ -271,7 +271,7 @@ class Tests{
         CrossingState c         = CrossingState(true, 1, 1);
         CrossingState expected  = CrossingState(false, 0, 0);
         CrossingState actual    = c.GenerateSuccessor(m);
-        
+
         tf.ASSERT_STRING_EQUALS(expected.str(), actual.str(), "MoveMixedLeft");
     }
 
@@ -306,8 +306,8 @@ class Tests{
         int expected = 8;
         int actual   = c.EstimateCost(visited);
         tf.ASSERT_INT_EQUALS(
-            expected, 
-            actual, 
+            expected,
+            actual,
             "EstimateReturnToInitialStateCost");
     }
 
@@ -329,8 +329,8 @@ class Tests{
         Program p;
         CrossingState actual   = p.SelectNext(c);
         tf.ASSERT_STRING_EQUALS(
-            expected.str(), 
-            actual.str(), 
+            expected.str(),
+            actual.str(),
             "ChooseFirstSuccessor");
     }
 
@@ -350,17 +350,17 @@ class Tests{
         CrossingState first    = p.SelectNext(c);
         CrossingState actual   = p.SelectNext(first);
         tf.ASSERT_STRING_EQUALS(
-            expected.str(), 
-            actual.str(), 
+            expected.str(),
+            actual.str(),
             "DoNotBacktrack");
     }
 
-    void SafeNoMissionariesHere(){
+    void SafeNoMissionariesHere() {
         CrossingState c = CrossingState(true, 0, 3);
         tf.ASSERT_TRUE(c.IsSafe(), "SafeNoMissionariesHere");
     }
 
-    void SafeNoMissionariesThere(){
+    void SafeNoMissionariesThere() {
         CrossingState c = CrossingState(true, 3, 2);
         tf.ASSERT_TRUE(c.IsSafe(), "SafeNoMissionariesThere");
     }

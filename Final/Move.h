@@ -57,7 +57,7 @@ public:
         cannibals_moving = cannibals;
     }
 
-    ~Move(){}
+    ~Move() {}
 
     /*
     True if the boat is currently on the right bank; otherwise false.
@@ -94,7 +94,7 @@ public:
     /*
     Creates a string representation of the object for display and testing.
     */
-    string str(){
+    string str() {
         stringstream ss;
         ss << "Moving " << (boat_moving_right ? "Right" : "Left");
         ss << ", with " << MissionariesOnBoat() << " missionaries, and ";

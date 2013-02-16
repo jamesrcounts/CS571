@@ -81,8 +81,8 @@ public:
         // Consider each possible move.
         vector<Move> moves = GenerateMoves();
         for (
-            std::vector<Move>::iterator it = moves.begin(); 
-            it != moves.end(); 
+            std::vector<Move>::iterator it = moves.begin();
+            it != moves.end();
             ++it)
         {
             // Is the move legal from this node?
@@ -93,7 +93,7 @@ public:
                 int estimate = successor.EstimateCost(history);
 
                 Consider(successor, estimate, *it);
-                
+
                 // Is this better than moves we've already seen?
                 if(estimate < min_estimate)
                 {
@@ -101,7 +101,7 @@ public:
                     min_estimate = estimate;
                     min = successor;
                 }
-            }            
+            }
         }
 
         // Select the best node I found.
@@ -131,9 +131,9 @@ public:
     void Review()
     {
         cout << endl << "Path to solution:" << endl;
-        for (std::vector<CrossingState>::iterator state = history.begin(); 
-            state != history.end(); 
-            ++state)
+        for (std::vector<CrossingState>::iterator state = history.begin();
+                state != history.end();
+                ++state)
         {
             cout << state->str() << endl;
         }
